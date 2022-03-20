@@ -1,0 +1,22 @@
+.date-container {
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+.plan-list-all {
+  position: fixed;
+  right: 24rpx;
+  bottom: 200rpx;
+  width: 72rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  background-color: #6ba4c3;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40rpx;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAllBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AJcWoAAAAMXRSTlMAgEC/W3Bqe4705S+2qXQO065lYEwq+e/XzsWdmomGVlE1JB8aEwjf27uxoz2TST8Eu9MPDQAAAWpJREFUWMPtl+lugkAQgLUIKMghiiIgIJdHz3n/l+sSSrscux1KE0PC92+GmW+zw4YsswkOLwsKtXe7IUANH9GjboO1QJjvSOBDA4skY1EgaHKYd/UH+6p2TaJVFdDJTRUc43b/hiomO4AmR1JDha2h7KiHJxI7TYFfX0Rp9OdXaq1iBlJTcCZJ26RXqaEWuYOc/mQkc7/6Zi+8UbVLIFzrgqicE45EAYJRy+lFajtD4pV7opkXqSesoKyeBBxBJs8ZWCiBrQCTG0awAQ46QvDME0gIQWoCEw33FiyJQTSWczBcEC4YvKMEmQtMPIzAAw4WQnDnCWSEQD0AExc1xCRYMtBHcw4eLviQRAYRSpA4vO/B0C+SiBBoQwXxBZisUUM0dJnBdiznYBL8UaD3F5zbN10JKxCAkNVSNhSINqbdEDsuy/nXtcQUfucABW57W3g6r7UK9EJjjBZL2Pmb9nq7AALnfkpnE//JJyXb1ff7xOh1AAAAAElFTkSuQmCC);
+  color: #fff;
+  border-radius: 36rpx;
+  font-size: 24rpx;
+}

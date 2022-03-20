@@ -1,0 +1,15 @@
+<view class="dialog-container" wx:if="{{showDialog}}">
+  <view class="mask" bindtap="close"></view>
+  <view class="dialog">
+    <view class="dialog-head">
+      <text class="title">{{title}}</text>
+      <text class="icon-close" bindtap="close"></text>
+    </view>
+    <view class="dialog-content">
+      <slot></slot>
+    </view>
+    <view class="btn-wrap">
+      <view class="btn" bindtap="save">{{btnName}}</view>
+    </view>
+  </view>
+</view>

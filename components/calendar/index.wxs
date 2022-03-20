@@ -1,0 +1,16 @@
+var judgeDone = function (time, plans) {
+    if (plans && plans.length) {
+        var now = getDate().getTime()
+        var cur = getDate(time).getTime()
+        if (cur <= now) {
+            return !plans.some(function(item) {
+                return item.status === 0
+            })
+        }
+    }
+    return true
+}
+
+module.exports = {
+    judgeDone: judgeDone
+}

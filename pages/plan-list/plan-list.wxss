@@ -1,0 +1,23 @@
+.plan-wrap {
+  padding: 24rpx;
+  font-size: 28rpx;
+}
+.plan-wrap .plan {
+  display: flex;
+  align-items: center;
+}
+.time {
+  color: #999;
+  font-size: 24rpx;
+}
+.dis {
+  opacity: .6;
+  text-decoration: line-through;
+}
+.text {
+  flex: 1;
+  margin: 12rpx 24rpx;
+  padding: 12rpx;
+  background-color: #bedff1;
+  border-radius: 4rpx;
+}

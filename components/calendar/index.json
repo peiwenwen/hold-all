@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "plan": "../../components/plan",
+    "dialog": "../../components/dialog"
+  }
+}

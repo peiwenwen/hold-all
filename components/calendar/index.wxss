@@ -1,0 +1,80 @@
+@import '../../app.wxss';
+.controller {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64rpx;
+}
+.controller .cur {
+  font-size: 36rpx;
+}
+
+.calendar-wrap {
+  margin-top: 24rpx;
+}
+.week-wrap {
+  display: flex;
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.week-wrap .week {
+  width: 14%;
+}
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 16rpx 0;
+  border-top: solid 1rpx #eee;
+  border-left: solid 1rpx #eee;
+}
+.days .day {
+  position: relative;
+  width: 14%;
+  height: 160rpx;
+  align-items: center;
+  flex-direction: column;
+  border-right: solid 1rpx #eee;
+  border-bottom: solid 1rpx #eee;
+  overflow-y: auto;
+}
+.days .day .num {
+  position: relative;
+  z-index: 10;
+  margin: 4rpx;
+  width: 46rpx;
+  height: 46rpx;
+  text-align: center;
+  line-height: 46rpx;
+  font-size: 24rpx;
+}
+.days .day.check .num {
+  color: white;
+  background-color: #6ba4c3;
+  border-radius: 50%;
+}
+.days .day .disable {
+  color: #aaa;
+}
+.days .day .tag {
+  position: absolute;
+  top: 4rpx;
+  right: 4rpx;
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background-color: red;
+}
+.days .day .plan-min {
+  position: absolute;
+  right: 4rpx;
+  bottom: 4rpx;
+  left: 4rpx;
+}
+.days .day .plan {
+  line-height: 1.2;
+  font-size: 22rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

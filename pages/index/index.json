@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "calendar": "../../components/calendar",
+    "plan": "../../components/plan"
+  }
+}

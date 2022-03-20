@@ -1,0 +1,16 @@
+<view class="date-container">
+  <!-- 日历 -->
+  <calendar
+    planList="{{planList}}"
+    binddatechecked="getdateChecked">
+  </calendar>
+  <!-- 计划 -->
+  <plan
+    dateChecked="{{dateChecked}}"
+    bindplan="getPlanList">
+  </plan>
+  <view 
+    class="plan-list-all"
+    bindtap="goPlanList">
+  </view>
+</view>

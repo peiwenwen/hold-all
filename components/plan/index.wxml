@@ -1,0 +1,102 @@
+<view class="plan-container">
+  <view class="plan-list">
+    <view class="plan-head">
+      <text class="title" bindtap="tips">计划清单<text class="icon-tips"></text></text>
+      <text
+        class="add" 
+        bindtap="add">+</text>
+    </view>
+    <block
+      wx:for="{{planList}}"
+      wx:for-index="key"
+      wx:key="key">
+      <view
+        class="plan"
+        wx:if="{{key === dateChecked || !dateChecked}}"
+        wx:for="{{item}}"
+        wx:for-item="em"
+        wx:for-index="index"
+        wx:key="index"
+        style="translate: {{em.touchstartX - em.touchendX > 100 ? '-160rpx' : 0}}">
+        <view
+          class="text {{em.status == 1 ? 'checked' : ''}}" 
+          style="color: {{typeList[em.type].color}}; background-color: {{typeList[em.type].backgroundColor}};"
+          data-key="{{key}}"
+          data-index="{{index}}"
+          catchtap="done"
+          bindtouchstart="touchstart"
+          bindtouchend="touchend">
+          <view wx:if="{{em.overtime && !em.status}}" class="warn">!</view>
+          <view wx:if="{{!dateChecked}}" class="time-tag">{{key}}</view>
+          <view>{{em.text}}</view>
+        </view>
+        <view class="icon-wrap" style="background-color: {{typeList[em.type].backgroundColor}};">
+          <text
+            class="icon-edit"
+            data-key="{{key}}"
+            data-index="{{index}}"
+            bindtap="edit">
+          </text>
+          <text 
+            class="icon-delete"
+            data-key="{{key}}"
+            data-index="{{index}}"
+            bindtap="delete">
+          </text>
+        </view>
+      </view>
+    </block>
+    <view wx:if="{{ dateChecked && !planList[dateChecked]}}" class="empty">暂无清单</view>
+  </view>
+  <!-- 添加计划弹窗 -->
+  <dialog
+    title="添加计划"
+    btnName="保存"
+    showDialog="{{showDialog}}"
+    bindsave="save"
+    bindchangedialog="changeDialog">
+    <view class="wrap">
+      <label>选择日期：</label>
+      <picker mode="date"
+        value="{{date}}" 
+        start="2015-09-01" 
+        end="2025-09-01"
+        class="date"
+        bindchange="bindDateChange">
+        <view class="picker">{{date}}</view>
+      </picker>
+    </view>
+    <view class="wrap">
+      <label>类型：</label>
+      <view class="type-wrap">
+        <text
+          class="type"
+          wx:for="{{typeList}}"
+          wx:key="index"
+          style="border-color: {{item.backgroundColor}}; color: {{typeChecked == index ? '#fff' : item.backgroundColor}}; background-color: {{typeChecked == index ? item.backgroundColor : '#fff'}}"
+          bindtap="checkType"
+          data-index="{{index}}">{{item.value}}
+        </text>
+      </view>
+    </view>
+    <view class="wrap">
+      <label>内容：</label>
+      <textarea
+        class="area" 
+        placeholder="输入计划"
+        model:value="{{inputText}}"/>
+      <view class="icon-clear" bindtap="clear"></view>
+    </view>
+    <view class="wrap">
+      <label>状态：</label>
+      <view
+        class="raiod-group {{status == index ? 'cur' : ''}}"
+        wx:for="{{statusList}}"
+        wx:key="index"
+        bindtap="changeStatus"
+        data-index="{{index}}">
+        <text class="raiod">{{item.value}}</text>
+      </view>
+    </view>
+  </dialog>
+</view>

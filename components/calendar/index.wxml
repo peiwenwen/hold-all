@@ -1,0 +1,50 @@
+<block>
+  <wxs src="./index.wxs" module="tools" />
+  <view class="controller">
+    <text class="btn" bindtap="changeMonth" data-step="-1"><text class="icon-arrow icon-arrow-left"></text> 上一月
+    </text>
+    <text class="cur">{{dateChecked}}</text>
+    <text class="btn" bindtap="changeMonth" data-step="1">下一月 <text class="icon-arrow icon-arrow-right"></text></text>
+  </view>
+  <view class="calendar">
+    <view
+      class="calendar-wrap">
+      <view class="week-wrap">
+        <text 
+          class="week" 
+          wx:for="{{weeks}}" 
+          wx:key="index">{{item}}
+        </text>
+      </view>
+      <view class="days">
+        <block
+          wx:for="{{days}}"
+          wx:key="index">
+          <view 
+            class="day {{index == dateCheckedIndex ? 'check' : ''}}"
+            bindtap="checkDate"
+            data-index="{{index}}"
+            data-cur-month="{{item.curMonth}}"
+            data-time="{{item.time}}">
+            <view 
+              wx:if="{{item.time != today}}" 
+              class="num {{!item.curMonth ? 'disable' : ''}}">{{item.date}}
+            </view>
+            <view wx:else class="num {{!item.curMonth ? 'disable' : ''}}">今</view>
+            <text wx:if="{{!tools.judgeDone(item.time, planList[item.time])}}" class="tag"></text>
+            <view class="plan-min" wx:if="{{planList[item.time].length}}">
+              <view
+                class="plan"
+                style="color: {{typeList[em.type].backgroundColor}}"
+                wx:for="{{planList[item.time]}}"
+                wx:key="i"
+                wx:for-item="em"
+                wx:for-index="i">{{em.text}}
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</block>

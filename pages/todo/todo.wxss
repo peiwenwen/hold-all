@@ -1,0 +1,67 @@
+.todo-wrap {
+  font-size: 28rpx;
+}
+.item {
+  padding: 24rpx;
+  margin: 24rpx;
+  background-color: #bedff1;
+  color: #fff;
+  text-align: center;
+  border-radius: 12rpx;
+}
+.disable {
+  /* background-color: rgba(); */
+  opacity: .6;
+}
+.egg-wrap {
+  position: fixed;
+  right: 24rpx;
+  bottom: 24rpx;
+  text-align: center;
+}
+.color-egg {
+  display: inline-block;
+  width: 40rpx;
+  height: 60rpx;
+  border-radius: 100% 100% 36rpx 36rpx;
+  overflow: hidden;
+}
+.color {
+  display: block;
+  margin-bottom: 4rpx;
+  height: 12rpx;
+}
+.color1 {
+  background-color: #EE4428;
+}
+.color2 {
+  background-color: #EEAE28;
+}
+.color3 {
+  background-color: #A9CC4A;
+}
+.color4 {
+  background-color: #CB5778;
+}
+.color5 {
+  background-color: #5780CB;
+}
+
+.font {
+  line-height: 1;
+}
+.font1 {
+  color: #EE4428;
+}
+.font2 {
+  color: #EEAE28;
+}
+.font3 {
+  color: #A9CC4A;
+}
+.font4 {
+  color: #CB5778;
+}
+.font5 {
+  color: #5780CB;
+}

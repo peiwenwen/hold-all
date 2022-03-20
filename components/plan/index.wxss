@@ -1,0 +1,144 @@
+@import '../../app.wxss';
+.plan-list {
+  overflow: hidden;
+}
+.plan-head {
+  margin: 24rpx 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.plan-head .title {
+  padding-left: 12rpx;
+  font-size: 32rpx;
+  border-left: solid 3px #7facd6;
+}
+.plan-head .add {
+  color: #7facd6;
+  font-size: 48rpx;
+}
+.plan {
+  position: relative;
+  margin: 12rpx 0;
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  /* transition: cubic-bezier(0.075, 0.82, 0.165, 1) .3s; */
+  /* transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) .3s; */
+  transition: translate cubic-bezier(0.455, 0.03, 0.515, 0.955) .3s;
+}
+.plan .text {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 24rpx;
+  min-height: 56rpx;
+  border-radius: 8rpx;
+  word-break: break-all;
+  box-sizing: border-box;
+}
+.plan .warn {
+  position: absolute;
+  left: 6rpx;
+  font-weight: bold;
+  font-size: 36rpx;
+  color: #000;
+}
+.plan .time-tag {
+  /* margin: 0 24rpx 0 12rpx;
+  padding: 12rpx 6rpx;
+  border: solid #333 1rpx;
+  border-width: 0 3rpx 3rpx 0;
+  transform: rotate(45deg); */
+  margin-right: 10rpx;
+  padding: 6rpx 0;
+  width: 120rpx;
+  text-align: center;
+  border-radius: 6rpx;
+  font-size: 20rpx;
+  background-color: rgba(255,255,255,.2);
+  color: rgba(0,0,0,.6);
+}
+.plan .checked {
+  min-height: auto;
+  height: 32rpx;
+  opacity: .6;
+  text-decoration: line-through #000;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.plan .icon-wrap {
+  position: absolute;
+  top: 0;
+  right: -160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 160rpx;
+  height: 100%;
+  background-color: #fff;
+  opacity: .7;
+  border-radius: 8rpx;
+}
+
+.wrap {
+  padding: 12rpx 0;
+  display: flex;
+  align-items: center;
+}
+.type-wrap {
+  display: flex;
+  overflow-x: auto;
+}
+.type-wrap .type {
+  position: relative;
+  margin-right: 12rpx;
+  padding: 6rpx 18rpx;
+  min-width: 60rpx;
+  border-radius: 6rpx;
+  text-align: center;
+  border: solid 1rpx;
+}
+.date {
+  flex: 1;
+}
+.picker {
+  height: 66rpx;
+  line-height: 66rpx;
+}
+.area {
+  flex: 1;
+  padding: 12rpx;
+  height: 120rpx;
+  box-sizing: border-box;
+  border: solid 1px #bedff1;
+}
+.raiod {
+  margin-right: 24rpx;
+}
+.raiod::before {
+  content: '';
+  margin-right: 8rpx;
+  display: inline-block;
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  border: solid 1rpx #7facd6;
+  box-sizing: border-box;
+  vertical-align: -6rpx;
+}
+.raiod-group.cur .raiod::before {
+  border-width: 10rpx;
+}
+.save {
+  display: block;
+  margin: 24rpx auto;
+  padding: 12rpx 0;
+  width: 160rpx;
+  text-align: center;
+  background-color: #7facd6;
+  color: #fff;
+  border-radius: 6rpx;
+}

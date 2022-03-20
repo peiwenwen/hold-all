@@ -1,0 +1,5 @@
+<view class="plan-wrap">
+  <plan
+    bindplan="getPlanList">
+  </plan>
+</view>
