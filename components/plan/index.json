@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "dialog": "../../components/dialog"
+    "dialog": "../../components/dialog",
+    "color-picker": "../../components/color-picker/color-picker"
   }
 }

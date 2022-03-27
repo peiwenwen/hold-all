@@ -1,53 +1,76 @@
 <view class="plan-container">
-  <view class="plan-list">
+  <block>
     <view class="plan-head">
       <text class="title" bindtap="tips">计划清单<text class="icon-tips"></text></text>
       <text
         class="add" 
-        bindtap="add">+</text>
+        bindtap="add">+
+      </text>
+      <!-- <text bindtap="getColor">拾色器</text> -->
     </view>
-    <block
-      wx:for="{{planList}}"
-      wx:for-index="key"
-      wx:key="key">
+    <wxs module="tools">
+      var objectEmpty = function (obj) {
+        return JSON.stringify(obj)
+      }
+      var isDone = function (em) {
+        var now = getDate().getTime()
+        var cur = getDate(em.date).getTime()
+        if (cur <= now) {
+          return em.status === 0
+        } else {
+          return false
+        }
+        return false
+      }
+      module.exports = {
+        objectEmpty: objectEmpty,
+        isDone: isDone
+      }
+    </wxs>
+    <view
+      class="plan-list">
       <view
-        class="plan"
         wx:if="{{key === dateChecked || !dateChecked}}"
-        wx:for="{{item}}"
-        wx:for-item="em"
-        wx:for-index="index"
-        wx:key="index"
-        style="translate: {{em.touchstartX - em.touchendX > 100 ? '-160rpx' : 0}}">
+        wx:for="{{sortKeys}}"
+        wx:key="item">
         <view
-          class="text {{em.status == 1 ? 'checked' : ''}}" 
-          style="color: {{typeList[em.type].color}}; background-color: {{typeList[em.type].backgroundColor}};"
-          data-key="{{key}}"
-          data-index="{{index}}"
-          catchtap="done"
-          bindtouchstart="touchstart"
-          bindtouchend="touchend">
-          <view wx:if="{{em.overtime && !em.status}}" class="warn">!</view>
-          <view wx:if="{{!dateChecked}}" class="time-tag">{{key}}</view>
-          <view>{{em.text}}</view>
-        </view>
-        <view class="icon-wrap" style="background-color: {{typeList[em.type].backgroundColor}};">
-          <text
-            class="icon-edit"
+          class="plan"
+          wx:for="{{planList[item]}}"
+          wx:for-item="em"
+          wx:for-index="index"
+          wx:key="index"
+          style="translate: {{em.touchstartX - em.touchendX > 100 ? '-160rpx' : 0}}">
+          <view
+            class="text {{em.status == 1 ? 'checked' : ''}}" 
+            style="color: {{typeList[em.type].color}}; background-color: {{typeList[em.type].backgroundColor}};"
             data-key="{{key}}"
             data-index="{{index}}"
-            bindtap="edit">
-          </text>
-          <text 
-            class="icon-delete"
-            data-key="{{key}}"
-            data-index="{{index}}"
-            bindtap="delete">
-          </text>
+            catchtap="done"
+            bindtouchstart="touchstart"
+            bindtouchend="touchend">
+            <view wx:if="{{tools.isDone(em)}}" class="warn"></view>
+            <view wx:if="{{!dateChecked}}" class="time-tag">{{item}}</view>
+            <view>{{em.text}}</view>
+          </view>
+          <view class="icon-wrap" style="background-color: {{typeList[em.type].backgroundColor || '#ff8b00'}};">
+            <text
+              class="icon-edit"
+              data-key="{{key}}"
+              data-index="{{index}}"
+              bindtap="edit">
+            </text>
+            <text 
+              class="icon-delete"
+              data-key="{{key}}"
+              data-index="{{index}}"
+              bindtap="delete">
+            </text>
+          </view>
         </view>
       </view>
-    </block>
-    <view wx:if="{{ dateChecked && !planList[dateChecked]}}" class="empty">暂无清单</view>
-  </view>
+      <view wx:if="{{ (dateChecked && !planList[dateChecked]) || tools.objectEmpty(planList) === '{}'}}" class="empty"></view>
+    </view>
+  </block>
   <!-- 添加计划弹窗 -->
   <dialog
     title="添加计划"
@@ -78,13 +101,15 @@
           data-index="{{index}}">{{item.value}}
         </text>
       </view>
+      <view class="add-type" bindtap="addType">+</view>
     </view>
     <view class="wrap">
       <label>内容：</label>
       <textarea
         class="area" 
         placeholder="输入计划"
-        model:value="{{inputText}}"/>
+        model:value="{{inputText}}"
+        bindinput="userInput"/>
       <view class="icon-clear" bindtap="clear"></view>
     </view>
     <view class="wrap">
@@ -99,4 +124,34 @@
       </view>
     </view>
   </dialog>
+  <view class="mask" wx:if="{{showDialogMin}}" bindtap="closeMin"></view>
+  <view class="dialog-min" wx:if="{{showDialogMin}}">
+    <view class="icon-close" bindtap="closeMin"></view>
+    <view class="con">
+      <view class="input-wrap">
+        <view class="min-wrap">
+          <text class="tit">名称：</text>
+          <input class="ipt" type="text" model:value="{{typeName}}"/>
+        </view>
+        <view class="min-wrap">
+          <text class="tit">字体色：</text>
+          <input class="ipt" type="text" model:value="{{typeColor}}"/>
+        </view>
+        <view class="min-wrap">
+          <text class="tit">背景色：</text>
+          <input class="ipt" type="text" model:value="{{typeBgColor}}"/>
+        </view>
+      </view>
+      <view
+        class="show"
+        style="border-color: {{typeBgColor}}; color: {{typeColor}}; background-color: {{typeBgColor}}">{{typeName}}
+      </view>
+    </view>
+    <view class="ss" bindtap="saveType">保存</view>
+  </view>
+  <!-- <color-picker
+    bindchangeColor="pickColor"
+    initColor="{{rgb}}"
+    show="{{pick}}">
+  </color-picker> -->
 </view>

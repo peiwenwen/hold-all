@@ -25,54 +25,82 @@
   display: flex;
   flex-wrap: wrap;
   margin: 16rpx 0;
-  border-top: solid 1rpx #eee;
-  border-left: solid 1rpx #eee;
+  border-top: solid 1rpx #F5F5F5;
+  border-left: solid 1rpx #F5F5F5;
 }
-.days .day {
+.day {
   position: relative;
+  display: flex;
   width: 14%;
   height: 160rpx;
-  align-items: center;
   flex-direction: column;
-  border-right: solid 1rpx #eee;
-  border-bottom: solid 1rpx #eee;
-  overflow-y: auto;
+  border-right: solid 1rpx #F5F5F5;
+  border-bottom: solid 1rpx #F5F5F5;
 }
-.days .day .num {
-  position: relative;
-  z-index: 10;
+
+.num {
   margin: 4rpx;
   width: 46rpx;
-  height: 46rpx;
+  max-height: 46rpx;
   text-align: center;
   line-height: 46rpx;
   font-size: 24rpx;
 }
-.days .day.check .num {
-  color: white;
-  background-color: #6ba4c3;
+
+.week-str {
+  padding-left: 8rpx;
+  font-size: 20rpx;
+}
+
+.row {
+  width: 100%;
+  height: 90rpx;
+  align-items: center;
+  flex-direction: initial;
+}
+
+.row .num {
+  height: 100rpx;
+}
+
+.days .check {
+  /* outline: solid 1rpx #9dc3e2; */
+}
+
+.check .num {
+  color: #fff;
+  background-color: #9dc3e2;
   border-radius: 50%;
 }
-.days .day .disable {
+.disable {
   color: #aaa;
 }
-.days .day .tag {
+.tag {
   position: absolute;
   top: 4rpx;
   right: 4rpx;
-  width: 10rpx;
-  height: 10rpx;
-  border-radius: 50%;
-  background-color: red;
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 6rpx;
+  background: no-repeat center / 24rpx url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAb1BMVEUAAADvRC3vRCzuRC7zQzHvRS7vRC7uRCzzSi/wRC7vRC7xRS3vRC7vRS30QS/vRC7vRC3vRC7wRC7vRC7wRC7wQy7vRC7wQy7wRC/wRC7vRC3xQy7vQjHvRC7uRC7wRS7wQy3wRC7wQy3uRCrvRC7cJ5h2AAAAJHRSTlMAv0CAKtRJJAnHqTSdMBX68efOspZlYVQ4uLRuH92KhXZ1RB6oSezjAAABOklEQVRYw+2X2W6DMBBFbSg2YQlLgazd7/9/Y6uxo6ZeJoq6SI18nkDDPYqHm0gRid9GEt8RAEAS/KngjhPwDxJ54Q0ywssXeTAPkIGH8kAezDsGJk8GL+8a2sO0L/q+2E+H1s1fNszVgDOGavbynEHt4LFTTj6+hbJBkKZ0NhB5D8cREcaj/w78JtQdTjxULwrndDW1gO2ihuV+0eIDfEXTQwzrU1wJAxzWgqWU7pbhIEtWUIGYRVSAistvQKjPT7SFx+bS9x/P9k5NcoCPjOcXsz971yDCEhWsaP5K13WPGKtYvjWFFQQY2lgRabq11ww5d4LR7A9h+DPQ8Mm6WLgW0wneOgTh+6xppk2heHRQUNOMqv4InjooyEzPCPBkjMCQBEmQBP9Y4PwI8IT+ROBKblEgr0Qkfo53Lebdx5uxYaAAAAAASUVORK5CYII=);
 }
-.days .day .plan-min {
-  position: absolute;
-  right: 4rpx;
-  bottom: 4rpx;
-  left: 4rpx;
+.plan-min {
+  display: flex;
+  flex: 1;
+  padding: 4rpx;
+  height: 100%;
+  overflow-y: auto;
+  flex-wrap: wrap;
+  box-sizing: border-box;
 }
-.days .day .plan {
-  line-height: 1.2;
+
+.row .plan-min {
+  align-items: center;
+}
+
+.plan {
+  width: 100%;
+  line-height: 1.3;
   font-size: 22rpx;
   text-overflow: ellipsis;
   overflow: hidden;

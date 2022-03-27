@@ -1,34 +1,12 @@
 // app.js
 App({
   data: {
-    typeList: {
-      0: {
-        color: '#fff',
-        backgroundColor: '#7facd6',
-        value: '日常'
-      },
-      1: {
-        color: '#fff',
-        backgroundColor: '#e8b7d4',
-        value: '工作'
-      },
-      2: {
-        color: '#fff',
-        backgroundColor: '#7ec581',
-        value: '学习'
-      },
-      3: {
-        color: '#fff',
-        backgroundColor: '#ec655f',
-        value: '其他'
-      }
-    },
   },
   onLaunch() {
-    // 展示本地存储能力
-    // const logs = wx.getStorageSync('logs') || []
-    // logs.unshift(Date.now())
-    // wx.setStorageSync('logs', logs)
+    const typeList = wx.getStorageSync('typeList') || {}
+    if (JSON.stringify(typeList) !== '{}') {
+      this.globalData.typeList = typeList
+    }
 
     // 登录
     wx.login({
@@ -55,6 +33,42 @@ App({
 
   },
   globalData: {
-    // userInfo: null
+    typeList: {
+      normal: {
+        color: '#fff',
+        backgroundColor: '#9dd2d8',
+        value: '日常'
+      },
+      work: {
+        color: '#fff',
+        backgroundColor: '#ffb5cc',
+        value: '工作'
+      },
+      study: {
+        color: '#fff',
+        backgroundColor: '#60a222',
+        value: '学习'
+      },
+      other: {
+        color: '#fff',
+        backgroundColor: '#de350b',
+        value: '其他'
+      },
+      // 4: {
+      //   color: '#fff',
+      //   backgroundColor: '#9dd2d8',
+      //   value: '测试'
+      // },
+      // 5: {
+      //   color: '#fff',
+      //   backgroundColor: '#e2b9d8',
+      //   value: '测试'
+      // },
+      // 6: {
+      //   color: '#fff',
+      //   backgroundColor: '#ff8b00',
+      //   value: '测试'
+      // },
+    }
   }
 })

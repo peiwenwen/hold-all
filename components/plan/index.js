@@ -8,9 +8,10 @@ Component({
     }
   },
   data: {
+    sortKeys: [],
     planList: {},
-    typeList: app.data.typeList,
-    typeChecked: 0,
+    typeList: app.globalData.typeList,
+    typeChecked: 'normal',
     inputText: '',
     showDialog: false,
     date: '',
@@ -25,36 +26,46 @@ Component({
     },
     status: 0,
     planItem: null, // 被编辑计划下标
-    count: 0, // 未按时完成的任务数
+    showDialogMin: false,
+    typeName: '类型',
+    typeColor: '#fff',
+    typeBgColor: '#ff8b00',
+
+    rgb: 'rgb(7,193,96)',
+    pick: true
   },
   lifetimes: {
-    attached() {
-      this.getNow()
-      wx.getStorage({
-        key: 'planList',
-        success: (res) => {
-          this.setData({
-            planList: res.data
-          })
-        }
+    attached () {
+      const planList = wx.getStorageSync('planList') || {}
+      const sortKeys = Object.keys(planList).sort()
+      console.log(sortKeys)
+      this.setData({
+        planList,
+        sortKeys
+      })
+    },
+  },
+  pageLifetimes: {
+    show () {
+      const planList = wx.getStorageSync('planList') || {}
+      this.setData({
+        planList: planList
       })
     }
   },
   methods: {
-    getNow () {
-      const now = new Date()
-      const year = now.getFullYear()
-      const month = formatNumber(now.getMonth() + 1)
-      const date = formatNumber(now.getDate())
-      const temp = `${year}/${month}/${date}`
-      this.data.today = temp
-    },
 
     // 添加计划清单
     add () {
+      let day = this.properties.dateChecked
+      if (!this.properties.dateChecked) {
+        day = this.properties.dateChecked
+        const now = new Date()
+        day = `${now.getFullYear()}-${formatNumber(now.getMonth() + 1)}-${formatNumber(now.getDate())}`
+      }
       this.setData({
         showDialog: true,
-        date: this.properties.dateChecked.replace(/\//g, '-')
+        date: day
       })
     },
 
@@ -89,8 +100,51 @@ Component({
       })
     },
 
+    // 解决warn报警没有绑定input函数，虽然不知道为什么要报警
+    userInput () {},
+
+    addType () {
+      this.setData({
+        showDialogMin: true
+      })
+    },
+
+    closeMin () {
+      this.setData({
+        showDialogMin: false
+      })
+    },
+
+    saveType () {
+      const item = {
+        color: this.data.typeColor,
+        backgroundColor: this.data.typeBgColor,
+        value: this.data.typeName
+      }
+      const index = `key${Math.floor(Math.random() * 20)}`
+      const str = Object.keys(this.data.typeList).find(key => {
+        return key == index
+      })
+      if (!str) {
+        this.data.typeList[index] = item
+        this.setData({
+          typeList: this.data.typeList,
+          showDialogMin: false
+        })
+        wx.setStorageSync('typeList', this.data.typeList)
+      }
+    },
+
     // 保存计划
     save () {
+      if (!this.data.date) {
+        wx.showToast({
+          title: '日期不能为空',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
       if (!this.data.inputText) {
         wx.showToast({
           title: '数据不能为空',
@@ -99,21 +153,22 @@ Component({
         })
         return
       }
-      const { typeChecked, planItem, inputText, status } = this.data
-      const { dateChecked } = this.properties
+      const { date, typeChecked, planItem, inputText, status } = this.data
       const item = {
+        date: date,
+        type: typeChecked,
         text: inputText,
         status: status,
-        type: typeChecked,
         touchstartX: 0,
         touchendX: 0
       }
-      console.log(1111,  this.data.planList, dateChecked, item)
+
+      // 编辑
       if (planItem) {
         this.data.planList[planItem[0]][planItem[1]] = item
       } else {
-        this.data.planList[dateChecked] = this.data.planList[dateChecked] || []
-        this.data.planList[dateChecked].push(item)
+        this.data.planList[date] = this.data.planList[date] || []
+        this.data.planList[date].push(item)
       }
       this.setData({
         planList: this.data.planList
@@ -143,6 +198,9 @@ Component({
     delete (e) {
       const { key, index } = e.currentTarget.dataset
       this.data.planList[key].splice(index, 1)
+      if (!this.data.planList[key].length) {
+        delete this.data.planList[key]
+      }
       this.setData({
         planList: this.data.planList
       })
@@ -204,6 +262,23 @@ Component({
       this.setData({
         showDialog: e.detail
       })
-    }
+    },
+
+
+
+
+
+    getColor () {
+      this.setData({
+        pick: true
+      })
+    },
+
+    pickColor(e) {
+      this.setData({
+        rgb: e.detail.color
+      })
+      console.log(this.data.rgb)
+    },
   }
 })

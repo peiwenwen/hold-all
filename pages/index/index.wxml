@@ -2,15 +2,22 @@
   <!-- 日历 -->
   <calendar
     planList="{{planList}}"
+    calendarType="{{calendarType}}"
     binddatechecked="getdateChecked">
   </calendar>
   <!-- 计划 -->
   <plan
+    wx:if="{{calendarType === 'normal'}}"
     dateChecked="{{dateChecked}}"
     bindplan="getPlanList">
   </plan>
-  <view 
-    class="plan-list-all"
-    bindtap="goPlanList">
+  <view class="tools">
+    <view
+      class="icon switch-style"
+      bindtap="switch"></view>
+    <view 
+      class="icon plan-list-all"
+      bindtap="goPlanList">
+    </view>
   </view>
 </view>

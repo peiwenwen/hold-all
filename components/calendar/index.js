@@ -2,7 +2,14 @@ import { formatNumber } from "../../utils/index.js"
 const app = getApp()
 Component({
   properties: {
-    planList: {}
+    planList: {
+      type: Object,
+      value: {}
+    },
+    calendarType: {
+      type: String,
+      value: ''
+    }
   },
   data: {
     months: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -11,7 +18,7 @@ Component({
     today: '', // 实际日期
     dateChecked: '', // 选中日期
     dateCheckedIndex: 0, // 选中日期index
-    typeList: app.data.typeList,
+    typeList: app.globalData.typeList,
     showDialog: false
   },
   observe: {
@@ -33,7 +40,7 @@ Component({
       const year = now.getFullYear()
       const month = formatNumber(now.getMonth() + 1)
       const date = formatNumber(now.getDate())
-      const temp = `${year}/${month}/${date}`
+      const temp = `${year}-${month}-${date}`
       this.setData({
         today: temp,
         dateChecked: temp
@@ -44,6 +51,7 @@ Component({
 
     // 获取当前月份的日期
     getDays (checked) {
+      checked = checked.replace(/-/g, '/')
       const temp = new Date(checked)
       const year = temp.getFullYear()
       const month = temp.getMonth()
@@ -84,16 +92,17 @@ Component({
         list.push({
           date: i,
           curMonth: false,
-          time: `${beforeYear}/${formatNumber(beforeMonth + 1)}/${formatNumber(i)}`
+          time: `${beforeYear}-${formatNumber(beforeMonth + 1)}-${formatNumber(i)}`
         })
       }
       
       // 当前月份
       for (let i = 1; i <= this.data.months[month]; i++) {
         list.push({
+          week: (dayBegin + i - 1) % 7,
           date: i,
           curMonth: true, // 是否是当前月份
-          time: `${year}/${formatNumber(month + 1)}/${formatNumber(i)}`
+          time: `${year}-${formatNumber(month + 1)}-${formatNumber(i)}`
         })
         if (i === date) {
           this.setData({
@@ -107,29 +116,29 @@ Component({
         list.push({
           date: i,
           curMonth: false,
-          time: `${afterYear}/${formatNumber(afterMonth + 1)}/${formatNumber(i)}`
+          time: `${afterYear}-${formatNumber(afterMonth + 1)}-${formatNumber(i)}`
         })
       }
       this.setData({
         days: list,
-        dateChecked: `${year}/${formatNumber(month + 1)}/${formatNumber(date)}`
+        dateChecked: `${year}-${formatNumber(month + 1)}-${formatNumber(date)}`
       })
     },
 
     // 切换月份
     changeMonth (e) {
       const step = Number(e.currentTarget.dataset.step)
-      const temp = new Date(this.data.dateChecked)
-      let year = temp.getFullYear()
-      let month = temp.getMonth() + step
-      if (month === -1) {
-        month = 11
+      const arr = this.data.dateChecked.split('-')
+      let year = +arr[0]
+      let month = +arr[1] + step
+      if (month === 0) {
+        month = 12
         year--
-      } else if (month === 12) {
-        month = 0
+      } else if (month === 13) {
+        month = 1
         year++
       }
-      this.getDays(`${year}/${month + 1}/1`)
+      this.getDays(`${year}-${month}-1`)
     },
 
     // 选中日期

@@ -9,7 +9,7 @@
   <view class="calendar">
     <view
       class="calendar-wrap">
-      <view class="week-wrap">
+      <view class="week-wrap" wx:if="{{calendarType === 'normal'}}">
         <text 
           class="week" 
           wx:for="{{weeks}}" 
@@ -20,12 +20,17 @@
         <block
           wx:for="{{days}}"
           wx:key="index">
-          <view 
-            class="day {{index == dateCheckedIndex ? 'check' : ''}}"
+          <view
+            wx:if="{{calendarType === 'normal' || (calendarType === 'row' && item.curMonth)}}"
+            class="day {{index == dateCheckedIndex ? 'check' : ''}} {{calendarType === 'row' ? 'row' : ''}}"
             bindtap="checkDate"
             data-index="{{index}}"
             data-cur-month="{{item.curMonth}}"
             data-time="{{item.time}}">
+            <text
+              wx:if="{{calendarType === 'row'}}"
+              class="week-str">{{tools.weekTrans(item.week)}}
+            </text>
             <view 
               wx:if="{{item.time != today}}" 
               class="num {{!item.curMonth ? 'disable' : ''}}">{{item.date}}
