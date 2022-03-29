@@ -30,19 +30,21 @@ Component({
     typeName: '类型',
     typeColor: '#fff',
     typeBgColor: '#ff8b00',
-
     rgb: 'rgb(7,193,96)',
     pick: true
+  },
+  observers: {
+    planList () {
+      this.setSort()
+    }
   },
   lifetimes: {
     attached () {
       const planList = wx.getStorageSync('planList') || {}
-      const sortKeys = Object.keys(planList).sort()
-      console.log(sortKeys)
       this.setData({
-        planList,
-        sortKeys
+        planList
       })
+      this.setSort()
     },
   },
   pageLifetimes: {
@@ -54,6 +56,15 @@ Component({
     }
   },
   methods: {
+
+    setSort () {
+      if (JSON.stringify(this.data.planList) !== '{}') {
+        const sortKeys = Object.keys(this.data.planList).sort()
+        this.setData({
+          sortKeys
+        })
+      }
+    },
 
     // 添加计划清单
     add () {
@@ -165,14 +176,22 @@ Component({
 
       // 编辑
       if (planItem) {
-        this.data.planList[planItem[0]][planItem[1]] = item
+        console.log(planItem)
+        if (planItem[0] === date) {
+          this.data.planList[date][planItem[1]] = item
+        } else {
+          this.data.planList[date] = this.data.planList[date] || []
+          this.data.planList[date].push(item)
+          this.data.planList[planItem[0]].splice(planItem[1], 1)
+        }
       } else {
         this.data.planList[date] = this.data.planList[date] || []
         this.data.planList[date].push(item)
       }
       this.setData({
         planList: this.data.planList
-      }, this.setStorage)
+      })
+      this.setStorage()
       wx.showToast({
         title: '保存成功',
         icon: 'none',
@@ -188,6 +207,7 @@ Component({
       const item = this.data.planList[key][index]
       this.setData({
         showDialog: true,
+        date: key,
         typeChecked: item.type,
         inputText: item.text,
         status: item.status

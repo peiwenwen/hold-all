@@ -21,9 +21,9 @@ Component({
     typeList: app.globalData.typeList,
     showDialog: false
   },
-  observe: {
-    planList (val) {
-      console.log(val)
+  observers: {
+    dateChecked () {
+      this.triggerEvent('datechecked', this.data.dateChecked)
     }
   },
   lifetimes: {
@@ -45,7 +45,6 @@ Component({
         today: temp,
         dateChecked: temp
       })
-      this.triggerEvent('datechecked', this.data.dateChecked)
       this.triggerEvent('today', temp)
     },
 
@@ -150,7 +149,6 @@ Component({
         dateChecked: dataset.time,
         dateCheckedIndex: index
       })
-      this.triggerEvent('datechecked', this.data.dateChecked)
     },
     changeDialog (e) {
       this.setData({

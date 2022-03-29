@@ -32,10 +32,12 @@
       <view
         wx:if="{{key === dateChecked || !dateChecked}}"
         wx:for="{{sortKeys}}"
-        wx:key="item">
+        wx:for-item="key"
+        wx:for-index="idex"
+        wx:key="key">
         <view
           class="plan"
-          wx:for="{{planList[item]}}"
+          wx:for="{{planList[key]}}"
           wx:for-item="em"
           wx:for-index="index"
           wx:key="index"
@@ -49,7 +51,7 @@
             bindtouchstart="touchstart"
             bindtouchend="touchend">
             <view wx:if="{{tools.isDone(em)}}" class="warn"></view>
-            <view wx:if="{{!dateChecked}}" class="time-tag">{{item}}</view>
+            <view wx:if="{{!dateChecked}}" class="time-tag">{{em.date}}</view>
             <view>{{em.text}}</view>
           </view>
           <view class="icon-wrap" style="background-color: {{typeList[em.type].backgroundColor || '#ff8b00'}};">
@@ -90,7 +92,7 @@
       </picker>
     </view>
     <view class="wrap">
-      <label>类型：</label>
+      <label class="label">类型：</label>
       <view class="type-wrap">
         <text
           class="type"
@@ -104,7 +106,7 @@
       <view class="add-type" bindtap="addType">+</view>
     </view>
     <view class="wrap">
-      <label>内容：</label>
+      <label class="label">内容：</label>
       <textarea
         class="area" 
         placeholder="输入计划"
@@ -113,14 +115,16 @@
       <view class="icon-clear" bindtap="clear"></view>
     </view>
     <view class="wrap">
-      <label>状态：</label>
-      <view
-        class="raiod-group {{status == index ? 'cur' : ''}}"
-        wx:for="{{statusList}}"
-        wx:key="index"
-        bindtap="changeStatus"
-        data-index="{{index}}">
-        <text class="raiod">{{item.value}}</text>
+      <label class="label">状态：</label>
+      <view class="raiod-group">
+        <view
+          class="{{status == index ? 'cur' : ''}}"
+          wx:for="{{statusList}}"
+          wx:key="index"
+          bindtap="changeStatus"
+          data-index="{{index}}">
+          <text class="raiod">{{item.value}}</text>
+        </view>
       </view>
     </view>
   </dialog>

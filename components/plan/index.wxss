@@ -91,8 +91,12 @@
   align-items: center;
   font-size: 24rpx;
 }
+.label {
+  width: 120rpx;
+}
 .type-wrap {
   display: flex;
+  flex: 1;
   overflow-x: auto;
 }
 .type-wrap .type {
@@ -118,6 +122,10 @@
   box-sizing: border-box;
   border: solid 1px #bedff1;
 }
+.raiod-group {
+  display: flex;
+  flex: 1;
+}
 .raiod {
   margin-right: 24rpx;
 }
@@ -132,7 +140,7 @@
   box-sizing: border-box;
   vertical-align: -6rpx;
 }
-.raiod-group.cur .raiod::before {
+.raiod-group .cur .raiod::before {
   border-width: 10rpx;
 }
 
